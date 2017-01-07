@@ -1,11 +1,116 @@
 <!DOCTYPE html>
 <html lang="ru">
     <head>
-        <title>Nice to see you!</title>
+        <meta charset="utf-8"/>
+        <title>Float to RGB converter</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+              integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <script
+                src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
+                integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc="
+                crossorigin="anonymous"></script>
+
+        <script type="text/javascript">
+            $(function () {
+                var $red = $("#red");
+                var $green = $("#green");
+                var $blue = $("#blue");
+                var $to_parse = $("#to_parse");
+
+                $red.on("input", updateColor);
+                $green.on("input", updateColor);
+                $blue.on("input", updateColor);
+
+                function updateColor(e) {
+                    var red = parseFloat($red.val());
+                    var green = parseFloat($green.val());
+                    var blue = parseFloat($blue.val());
+
+                    if (!isNaN(red) || !isNaN(green) || !isNaN(blue)) {
+                        var red_dec = floatToDec(red);
+                        var green_dec = floatToDec(green);
+                        var blue_dec = floatToDec(blue);
+
+                        var red_hex = red_dec.toString(16);
+                        var green_hex = green_dec.toString(16);
+                        var blue_hex = blue_dec.toString(16);
+
+                        var all_hex = (red_hex + green_hex + blue_hex).toUpperCase();
+                        var all_css = "#" + all_hex;
+
+                        $to_parse.val(red + ", " + green + ", " + blue);
+                        $("#color-sample").css("background-color", all_css);
+                        $("#rgb-dec").text(red_dec + " " + green_dec + " " + blue_dec);
+                        $("#rgb-hex").text(all_hex);
+                        $("#rgb-css").text(all_css);
+                        $("#rgb-float-carr").text("float color[3] = {" + red_dec + ", " + green_dec + ", " + blue_dec + "};");
+                    }
+                }
+
+                function floatToDec(number) {
+                    var clamped = Math.max(0.0, Math.min(1.0, number));
+                    return Math.floor(clamped == 1.0 ? 255 : clamped * 256.0);
+                }
+            });
+        </script>
     </head>
 
     <body>
-        <h1>Hello!</h1>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h4>Input</h4>
+                    <form>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">R</div>
+                                <input type="text" class="form-control" id="red" placeholder="0.0">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">G</div>
+                                <input type="text" class="form-control" id="green" placeholder="0.0">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">B</div>
+                                <input type="text" class="form-control" id="blue" placeholder="0.0">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="to_parse" placeholder="0.0, 0.0, 0.0">
+                        </div>
+
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" id="clamp-switch"/> Clamp input
+                            </label>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="col-md-6">
+                    <h4>Result</h4>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <p>RGB (dec): <span id="rgb-dec"></span></p>
+                            <p>RGB (hex): <span id="rgb-hex"></span></p>
+                            <p>RGB (css): <span id="rgb-css"></span></p>
+                            <p>RGB (C array): <span id="rgb-float-carr"></span></p>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div id="color-sample" style="width: 50px; height: 50px; border: 1px solid black;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>
 
