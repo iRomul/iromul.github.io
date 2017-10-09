@@ -17,7 +17,7 @@
 
             <fieldset class="form-group">
                 <div class="row">
-                    <legend class="col-form-legend col-sm-2">Radios</legend>
+                    <legend class="col-form-legend col-sm-2">Type</legend>
                     <div class="col-sm-10">
                         <div class="form-check">
                             <label class="form-check-label">
