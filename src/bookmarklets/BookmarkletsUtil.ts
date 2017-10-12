@@ -35,7 +35,11 @@ export class BookmarkletsUtil {
         const controllerPos = controller.lastIndexOf("Controller");
 
         if (controllerPos != -1) {
-            controller = controller.substring(0, controllerPos)
+            controller = controller.substring(0, controllerPos);
+
+            if (controller.length > 0) {
+                controller = controller.charAt(0).toLowerCase() + controller.substr(1);
+            }
         }
 
         return controller;
