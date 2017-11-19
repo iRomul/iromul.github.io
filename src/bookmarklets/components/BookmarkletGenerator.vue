@@ -26,7 +26,5 @@
 </script>
 
 <style>
-    .nav-padded {
-        margin-bottom: 20px;
-    }
+
 </style>

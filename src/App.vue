@@ -18,12 +18,18 @@
                         <router-link tag="li" class="nav-item" to="/bookmarklet">
                             <a class="nav-link">Bookmarklets</a>
                         </router-link>
+
+                        <router-link tag="li" class="nav-item" to="/presetter">
+                            <a class="nav-link">Presetter</a>
+                        </router-link>
                     </ul>
                 </div>
             </nav>
         </div>
 
         <router-view></router-view>
+        
+        <notifications/>
     </div>
 </template>
 
@@ -35,11 +41,17 @@
     import SimpleGenerator from './bookmarklets/components/SimpleGenerator.vue'
     import SimpleBuilder from './bookmarklets/components/SimpleBuilder.vue'
 
+    import Presetter from './presetter/components/Presetter.vue'
+
     import PageNotFound from './PageNotFound.vue'
+
     import Vue from 'vue';
     import VueRouter from 'vue-router';
 
+    import Notifications from 'vue-notification';
+
     Vue.use(VueRouter);
+    Vue.use(Notifications);
 
     const routes = [
         {path: '/', component: HomePage},
@@ -53,11 +65,12 @@
                 {path: 'builder', component: SimpleBuilder}
             ]
         },
+        {path: '/presetter', component: Presetter},
         {path: '*', component: PageNotFound}
     ];
 
     const router = new VueRouter({
-        mode: 'history',
+        mode: 'hash',
         linkActiveClass: 'active',
         routes
     });
@@ -73,4 +86,8 @@
 
 <style lang="scss">
     @import "~bootstrap/scss/bootstrap.scss";
+
+    .nav-padded {
+        margin-bottom: 20px;
+    }
 </style>
