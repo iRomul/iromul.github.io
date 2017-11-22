@@ -100,7 +100,7 @@ class ${serviceName} {
         return true
     }
     
-    def loadGlobalData(${dataName} reportData, UserContext userContext, Map innerSettings) {
+    def loadGlobalData(${dataName} reportData, UserContext userContext) {
         /* Put code here */
     }
 }`;
