@@ -109,6 +109,8 @@
 
                         this.hasResult = true;
 
+                        this.tab = 'result';
+
                         this.showSuccess();
                     } catch (e) {
                         console.error(e);

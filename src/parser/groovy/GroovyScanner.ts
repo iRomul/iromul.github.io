@@ -1,5 +1,4 @@
 import ParseRange from "./ParseRange";
-import ParseError from "../ParseError";
 
 enum GroovyTokens {
     CLASS = "class",
@@ -149,6 +148,6 @@ export default class GroovyScanner {
     }
 
     private throwParseError(message: string) {
-        throw new ParseError(`${message} (file: ${this.name})`);
+        throw new Error(`${message} (file: ${this.name})`);
     }
 }
