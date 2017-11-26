@@ -7,10 +7,10 @@
       "es6",
       "es2015.promise"
     ],
-    "target": "es5",
+    "target": "es2016",
     "outDir": "./dist/",
     "noImplicitAny": true,
-    "module": "es2015",
+    "module": "es6",
     "moduleResolution": "node",
     "allowJs": false,
     "alwaysStrict": true,
