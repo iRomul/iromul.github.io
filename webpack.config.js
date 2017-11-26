@@ -1,12 +1,21 @@
 const path = require('path');
 const webpack = require('webpack');
 
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+
 module.exports = {
-    entry: './src/main.js',
+    entry: {
+        app: './src/main.js',
+        vendor: ['lodash', 'vue', 'vue-router']
+    },
     output: {
         path: path.resolve(__dirname, './dist'),
         publicPath: '/dist/',
-        filename: 'build.js'
+        filename: '[name].js'
     },
     module: {
         rules: [
@@ -70,12 +79,44 @@ if (process.env.NODE_ENV === 'production') {
                 NODE_ENV: '"production"'
             }
         }),
-        new webpack.optimize.UglifyJsPlugin({
-            sourceMap: false,
-            compress: {
-                warnings: false
+
+        new CleanWebpackPlugin(['dist']),
+
+        new FaviconsWebpackPlugin({
+            logo: path.resolve('src/assets/Tools_512.png'),
+            prefix: 'icons/',
+
+            background: '#343a40',
+            title: 'My Tools',
+            persistentCache: true,
+
+            icons: {
+                android: true,
+                appleIcon: true,
+                appleStartup: false,
+                coast: false,
+                favicons: true,
+                firefox: true,
+                opengraph: false,
+                twitter: false,
+                yandex: false,
+                windows: true
             }
         }),
+
+        new HtmlWebpackPlugin({
+            filename: "../index.html",
+            template: "src/_template.html"
+        }),
+
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'vendor'
+        }),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'runtime'
+        }),
+
+        new UglifyJsPlugin(),
         new webpack.LoaderOptionsPlugin({
             minimize: true
         })
